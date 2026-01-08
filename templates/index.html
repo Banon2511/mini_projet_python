@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>MiniSec Scanner - Interface Web</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        :root {
+            --bg: #050816;
+            --card: #0f172a;
+            --accent: #22c55e;
+            --accent-soft: rgba(34, 197, 94, 0.08);
+            --danger: #ef4444;
+            --warning: #eab308;
+            --text: #e5e7eb;
+            --muted: #6b7280;
+            --border: #1f2937;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: radial-gradient(circle at top, #1d283a 0, #020617 55%, #000 100%);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1100px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .title-block h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            letter-spacing: 0.05em;
+        }
+
+        .title-block p {
+            margin: 4px 0 0;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .badge {
+            padding: 4px 10px;
+            border-radius: 999px;
+            border: 1px solid var(--border);
+            background: rgba(15, 23, 42, 0.8);
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.4fr);
+            gap: 20px;
+        }
+
+        @media (max-width: 900px) {
+            .grid {
+                grid-template-columns: minmax(0, 1fr);
+            }
+        }
+
+        .card {
+            border-radius: 16px;
+            background: radial-gradient(circle at top left, rgba(34, 197, 94, 0.1), transparent 55%),
+                        radial-gradient(circle at bottom right, rgba(56, 189, 248, 0.12), transparent 55%),
+                        rgba(15, 23, 42, 0.9);
+            border: 1px solid rgba(31, 41, 55, 0.9);
+            padding: 18px 18px 16px;
+            box-shadow:
+                0 30px 80px rgba(15, 23, 42, 0.9),
+                0 0 0 1px rgba(15, 23, 42, 0.7);
+        }
+
+        .card h2 {
+            margin: 0 0 12px;
+            font-size: 1.1rem;
+        }
+
+        .card-sub {
+            margin: 0 0 16px;
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.85rem;
+            margin-bottom: 6px;
+            color: var(--muted);
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 8px 10px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: rgba(15, 23, 42, 0.9);
+            color: var(--text);
+            font-size: 0.9rem;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: rgba(34, 197, 94, 0.7);
+            box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.4);
+        }
+
+        .hint {
+            margin-top: 4px;
+            font-size: 0.75rem;
+            color: var(--muted);
+        }
+
+        .switch-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin: 14px 0;
+        }
+
+        .switch {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+
+        .switch input {
+            width: 32px;
+            height: 18px;
+        }
+
+        .actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 12px;
+        }
+
+        button {
+            border: none;
+            border-radius: 999px;
+            padding: 8px 18px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #020617;
+            background: linear-gradient(135deg, #22c55e, #4ade80);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow:
+                0 12px 30px rgba(34, 197, 94, 0.35),
+                0 0 0 1px rgba(22, 163, 74, 0.5);
+        }
+
+        button span {
+            font-size: 1rem;
+        }
+
+        .small {
+            font-size: 0.78rem;
+            color: var(--muted);
+        }
+
+        .error {
+            margin-top: 8px;
+            padding: 6px 10px;
+            border-radius: 10px;
+            background: rgba(239, 68, 68, 0.08);
+            color: #fecaca;
+            border: 1px solid rgba(185, 28, 28, 0.6);
+            font-size: 0.8rem;
+        }
+
+        .summary {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .pill {
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border: 1px solid rgba(31, 41, 55, 0.9);
+            background: rgba(15, 23, 42, 0.8);
+            color: var(--muted);
+        }
+
+        .pill-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+        }
+
+        .dot-high {
+            background: var(--danger);
+        }
+
+        .dot-medium {
+            background: var(--warning);
+        }
+
+        .dot-low {
+            background: var(--accent);
+        }
+
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+            margin-top: 6px;
+        }
+
+        .results-table thead {
+            background: rgba(15, 23, 42, 0.9);
+        }
+
+        .results-table th,
+        .results-table td {
+            padding: 6px 8px;
+            border-bottom: 1px solid rgba(31, 41, 55, 0.9);
+            text-align: left;
+        }
+
+        .results-table th {
+            font-weight: 500;
+            color: var(--muted);
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+
+        .risk-badge {
+            padding: 2px 8px;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .risk-high {
+            background: rgba(239, 68, 68, 0.18);
+            color: #fecaca;
+            border: 1px solid rgba(239, 68, 68, 0.7);
+        }
+
+        .risk-medium {
+            background: rgba(234, 179, 8, 0.16);
+            color: #fef9c3;
+            border: 1px solid rgba(234, 179, 8, 0.7);
+        }
+
+        .risk-low {
+            background: rgba(34, 197, 94, 0.14);
+            color: #dcfce7;
+            border: 1px solid rgba(34, 197, 94, 0.7);
+        }
+
+        .reasons {
+            max-width: 420px;
+            color: var(--muted);
+        }
+
+        .footer-note {
+            margin-top: 8px;
+            font-size: 0.78rem;
+            color: var(--muted);
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="title-block">
+            <h1>MiniSec Scanner • Web</h1>
+            <p>Analyse de sécurité de fichiers – interface web pédagogique</p>
+        </div>
+        <div class="badge">
+            v1.0 · Mode local • Python / Flask
+        </div>
+    </div>
+
+    <div class="grid">
+        <div class="card">
+            <h2>Configuration du scan</h2>
+            <p class="card-sub">
+                Saisissez un dossier présent sur la machine où tourne cette application
+                (par exemple le bureau ou un répertoire de test).
+            </p>
+            <form method="post">
+                <div class="form-group">
+                    <label for="folder">Chemin du dossier à analyser</label>
+                    <input type="text" id="folder" name="folder" placeholder="Ex : C:\Users\INFO\Documents" />
+                    <div class="hint">
+                        Laissez vide pour utiliser le dossier courant de l'application.
+                    </div>
+                </div>
+
+                <div class="switch-group">
+                    <label>Options</label>
+                    <div class="switch">
+                        <input type="checkbox" id="recursive" name="recursive" />
+                        <span>Scanner les sous-dossiers (récursif)</span>
+                    </div>
+                    <div class="switch">
+                        <input type="checkbox" id="analyze_content" name="analyze_content" />
+                        <span>Activer l'analyse de contenu approfondie</span>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button type="submit">
+                        <span>▶</span>
+                        Lancer l'analyse
+                    </button>
+                    <span class="small">
+                        Aucun fichier n'est modifié ou exécuté. Analyse en lecture seule.
+                    </span>
+                </div>
+
+                {% if error %}
+                    <div class="error">{{ error }}</div>
+                {% endif %}
+            </form>
+        </div>
+
+        <div class="card">
+            <h2>Résultats</h2>
+            {% if summary %}
+                <p class="card-sub">
+                    Dossier : <strong>{{ summary.folder }}</strong><br>
+                    Mode : {{ "Récursif" if summary.recursive else "Standard" }} ·
+                    Analyse de contenu : {{ "Activée" if summary.analyze_content else "Désactivée" }}
+                </p>
+
+                <div class="summary">
+                    <div class="pill">
+                        <div class="pill-dot dot-low"></div>
+                        {{ summary.analyzed_files }} / {{ summary.total_files }} fichiers analysés
+                    </div>
+                    <div class="pill">
+                        <div class="pill-dot dot-high"></div>
+                        High : {{ summary.high }}
+                    </div>
+                    <div class="pill">
+                        <div class="pill-dot dot-medium"></div>
+                        Medium : {{ summary.medium }}
+                    </div>
+                    <div class="pill">
+                        <div class="pill-dot dot-low"></div>
+                        Low : {{ summary.low }}
+                    </div>
+                </div>
+
+                {% if results %}
+                    <div style="max-height: 420px; overflow: auto; margin-top: 6px;">
+                        <table class="results-table">
+                            <thead>
+                            <tr>
+                                <th>Fichier</th>
+                                <th>Taille (KB)</th>
+                                <th>Risque</th>
+                                <th>Indicateurs</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for file in results %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ file.name }}</strong><br>
+                                        <span class="small">{{ file.path }}</span>
+                                    </td>
+                                    <td>{{ "%.2f"|format(file.size / 1024) }}</td>
+                                    <td>
+                                        <span class="risk-badge
+                                            {% if file.risk_level == 'High' %}risk-high
+                                            {% elif file.risk_level == 'Medium' %}risk-medium
+                                            {% else %}risk-low{% endif %}">
+                                            {{ file.risk_level }}
+                                        </span>
+                                    </td>
+                                    <td class="reasons">
+                                        {% for reason in file.reasons %}
+                                            • {{ reason }}<br>
+                                        {% endfor %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <p class="card-sub">Aucun fichier analysé dans ce dossier.</p>
+                {% endif %}
+            {% else %}
+                <p class="card-sub">
+                    Lancez une première analyse pour afficher ici le rapport de menaces classé
+                    par fichier et par niveau de risque.
+                </p>
+            {% endif %}
+
+            <div class="footer-note">
+                MiniSec Scanner Web est une adaptation pédagogique de la version terminal, à utiliser
+                uniquement dans un contexte d'apprentissage.
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+

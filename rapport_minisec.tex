@@ -1,0 +1,180 @@
+\documentclass[a4paper,12pt]{article}
+
+% ---------------- Packages ----------------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{booktabs}
+
+\geometry{margin=2.5cm}
+
+% Configuration du code Python
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily\footnotesize,
+    keywordstyle=\color{blue}\bfseries,
+    stringstyle=\color{red},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    stepnumber=1,
+    numbersep=10pt,
+    backgroundcolor=\color{gray!10},
+    frame=single,
+    rulecolor=\color{gray!30},
+    tabsize=4,
+    captionpos=b,
+    breaklines=true
+}
+
+% ---------------- En-tête et pied de page ----------------
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Mini-projet Cybersécurité}
+\fancyhead[R]{Analyseur de Sécurité}
+\fancyfoot[C]{\thepage}
+
+% ---------------- Infos ----------------
+\title{\textbf{MiniSec Scanner}}
+\author{
+Étudiant en Cybersécurité -- Matricule : 23002su \\
+Promotion 2024-2025
+}
+\date{\today}
+
+\begin{document}
+
+% ---------------- Page de garde ----------------
+\maketitle
+\vspace{1cm}
+
+\begin{center}
+\textbf{Option :} Sécurité Informatique \\
+\textbf{Matière :} Cybersécurité \\
+\textbf{Outil :} Python 3.x + YARA
+\end{center}
+
+\newpage
+
+% ---------------- Résumé ----------------
+\section*{Résumé}
+Ce mini-projet consiste à développer un outil d'analyse de sécurité de fichiers
+appelé MiniSec Scanner. L'objectif est de détecter des fichiers potentiellement
+suspects en utilisant des techniques d'analyse heuristique combinées avec le
+moteur de détection YARA pour une identification avancée de menaces.
+
+\newpage
+
+% ---------------- Introduction ----------------
+\section{Introduction}
+La sécurité informatique moderne nécessite des outils efficaces pour détecter
+les menaces potentielles. MiniSec Scanner est un outil pédagogique conçu pour
+analyser des fichiers et identifier les risques de sécurité basé sur plusieurs
+critères : extension, nom, taille et contenu.
+
+\section{Objectif du projet}
+L'objectif de ce travail est de :
+\begin{itemize}
+\item Concevoir un analyseur de fichiers multi-critères.
+\item Intégrer le moteur YARA pour une détection professionnelle.
+\item Générer des rapports détaillés d'analyse.
+\item Respecter les bonnes pratiques de développement Python.
+\end{itemize}
+
+% ---------------- Architecture ----------------
+\section{Architecture du Scanner}
+L'architecture étudiée est basée sur une analyse modulaire.
+Elle comprend :
+\begin{itemize}
+\item Une classe principale \texttt{MiniSecScanner}.
+\item Des modules d'analyse (extension, nom, taille, contenu).
+\item Un moteur YARA intégré avec signatures embarquées.
+\item Un générateur de rapports textuels.
+\end{itemize}
+
+L'analyse est réalisée sur des dossiers locaux avec option de scan récursif
+afin d'observer les différents niveaux de risque.
+
+% ---------------- Implémentation ----------------
+\section{Implémentation en Python}
+L'implémentation est réalisée en Python 3.x avec une architecture orientée objet.
+Les principaux composants analysés sont :
+\begin{itemize}
+\item Les extensions dangereuses (.exe, .bat, .dll, etc.).
+\item Les mots-clés suspects (virus, malware, crack, etc.).
+\item Les anomalies de taille (vide, très volumineux).
+\item Les signatures YARA pour détection avancée.
+\end{itemize}
+
+\begin{lstlisting}[caption={Exemple d'analyse d'extension}]
+def analyze_extension(self, extension: str) -> Tuple[int, str]:
+    if extension in self.HIGH_RISK_EXTENSIONS:
+        return (3, f"Extension dangereuse : {extension}")
+    elif extension in self.MEDIUM_RISK_EXTENSIONS:
+        return (2, f"Extension suspecte : {extension}")
+    return (0, "")
+\end{lstlisting}
+
+% ---------------- YARA Integration ----------------
+\section{Intégration du Moteur YARA}
+YARA est intégré comme dépendance optionnelle pour une détection professionnelle.
+Les règles sont embarquées directement dans le code :
+
+\begin{lstlisting}[caption={Règles YARA intégrées}]
+YARA_RULES = """
+rule EICAR_Test_File {
+    meta:
+        description = "Standard antivirus test file"
+        threat_level = "Medium"
+    strings:
+        $eicar = "EICAR-STANDARD-ANTIVIRUS-TEST-FILE"
+    condition:
+        $eicar
+}
+"""
+\end{lstlisting}
+
+% ---------------- Résultats ----------------
+\section{Résultats et analyse}
+Les résultats obtenus montrent que le scanner détecte efficacement les menaces.
+Les fichiers sont classifiés en trois niveaux de risque :
+\begin{itemize}
+\item \textbf{Low} : Fichiers standards (0-1 point)
+\item \textbf{Medium} : Extensions suspectes (2-4 points)
+\item \textbf{High} : Menaces claires (5+ points)
+\end{itemize}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Type de fichier} & \textbf{Risque} & \textbf{Score} \\
+\hline
+document.txt & Low & 0 \\
+program.exe & Medium & 2 \\
+crack\_tool.exe & High & 6 \\
+eicar\_test.txt & Medium & 3 \\
+\hline
+\end{tabular}
+\caption{Résultats d'analyse sur fichiers de test}
+\end{table}
+
+% ---------------- Conclusion ----------------
+\section{Conclusion}
+Ce mini-projet a permis de comprendre les principes de l'analyse de sécurité
+et de développer un outil fonctionnel avec des technologies professionnelles.
+Les résultats confirment que l'approche heuristique combinée à YARA offre
+une détection efficace tout en restant pédagogique.
+
+% ---------------- Déclaration d'honneur ----------------
+\section*{Déclaration d'honneur}
+Je déclare que ce travail a été réalisé par mes soins et qu'il est
+exempt de tout plagiat.
+
+\end{document}
