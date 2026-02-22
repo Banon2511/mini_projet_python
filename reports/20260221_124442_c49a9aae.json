@@ -1,0 +1,137 @@
+{
+  "summary": {
+    "total_files": 10,
+    "analyzed_files": 10,
+    "high": 3,
+    "medium": 3,
+    "low": 4,
+    "folder": "C:\\Users\\INFO\\AppData\\Local\\Temp\\tmp5zm4bu5t\\test_files",
+    "recursive": true,
+    "analyze_content": false,
+    "scan_duration": 0.02,
+    "scan_status": "completed",
+    "timestamp": "2026-02-21T12:44:42.750529Z",
+    "threat_percentage": 60.0
+  },
+  "results": [
+    {
+      "name": "crack_tool.exe",
+      "path": "C:\\Users\\INFO\\AppData\\Local\\Temp\\tmp5zm4bu5t\\test_files\\crack_tool.exe",
+      "size": 13,
+      "extension": ".exe",
+      "risk_level": "High",
+      "score": 7,
+      "reasons": [
+        "Extension dangereuse: .exe",
+        "Motif malveillant détecté: crack",
+        "Modifié récemment (0.0h)"
+      ]
+    },
+    {
+      "name": "data.csv",
+      "path": "C:\\Users\\INFO\\AppData\\Local\\Temp\\tmp5zm4bu5t\\test_files\\data.csv",
+      "size": 20,
+      "extension": ".csv",
+      "risk_level": "Low",
+      "score": 1,
+      "reasons": [
+        "Modifié récemment (0.0h)"
+      ]
+    },
+    {
+      "name": "document.txt",
+      "path": "C:\\Users\\INFO\\AppData\\Local\\Temp\\tmp5zm4bu5t\\test_files\\document.txt",
+      "size": 28,
+      "extension": ".txt",
+      "risk_level": "Low",
+      "score": 1,
+      "reasons": [
+        "Modifié récemment (0.0h)"
+      ]
+    },
+    {
+      "name": "eicar.txt",
+      "path": "C:\\Users\\INFO\\AppData\\Local\\Temp\\tmp5zm4bu5t\\test_files\\eicar.txt",
+      "size": 68,
+      "extension": ".txt",
+      "risk_level": "Low",
+      "score": 1,
+      "reasons": [
+        "Modifié récemment (0.0h)"
+      ]
+    },
+    {
+      "name": "image.jpg",
+      "path": "C:\\Users\\INFO\\AppData\\Local\\Temp\\tmp5zm4bu5t\\test_files\\image.jpg",
+      "size": 18,
+      "extension": ".jpg",
+      "risk_level": "Low",
+      "score": 1,
+      "reasons": [
+        "Modifié récemment (0.0h)"
+      ]
+    },
+    {
+      "name": "keylogger.js",
+      "path": "C:\\Users\\INFO\\AppData\\Local\\Temp\\tmp5zm4bu5t\\test_files\\keylogger.js",
+      "size": 44,
+      "extension": ".js",
+      "risk_level": "High",
+      "score": 7,
+      "reasons": [
+        "Extension dangereuse: .js",
+        "Motif malveillant détecté: keylog",
+        "Modifié récemment (0.0h)"
+      ]
+    },
+    {
+      "name": "program.exe",
+      "path": "C:\\Users\\INFO\\AppData\\Local\\Temp\\tmp5zm4bu5t\\test_files\\program.exe",
+      "size": 15,
+      "extension": ".exe",
+      "risk_level": "Medium",
+      "score": 4,
+      "reasons": [
+        "Extension dangereuse: .exe",
+        "Modifié récemment (0.0h)"
+      ]
+    },
+    {
+      "name": "suspicious.py",
+      "path": "C:\\Users\\INFO\\AppData\\Local\\Temp\\tmp5zm4bu5t\\test_files\\suspicious.py",
+      "size": 32,
+      "extension": ".py",
+      "risk_level": "Medium",
+      "score": 3,
+      "reasons": [
+        "Extension suspecte: .py",
+        "Modifié récemment (0.0h)"
+      ]
+    },
+    {
+      "name": "virus.bat",
+      "path": "C:\\Users\\INFO\\AppData\\Local\\Temp\\tmp5zm4bu5t\\test_files\\virus.bat",
+      "size": 20,
+      "extension": ".bat",
+      "risk_level": "High",
+      "score": 7,
+      "reasons": [
+        "Extension dangereuse: .bat",
+        "Motif malveillant détecté: virus",
+        "Modifié récemment (0.0h)"
+      ]
+    },
+    {
+      "name": "hidden.exe",
+      "path": "C:\\Users\\INFO\\AppData\\Local\\Temp\\tmp5zm4bu5t\\test_files\\nested\\hidden.exe",
+      "size": 17,
+      "extension": ".exe",
+      "risk_level": "Medium",
+      "score": 4,
+      "reasons": [
+        "Extension dangereuse: .exe",
+        "Modifié récemment (0.0h)"
+      ]
+    }
+  ]
+}

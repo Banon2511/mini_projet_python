@@ -1,3 +1,0 @@
-Ce fichier contient du contenu suspect avec des mots comme virus et malware.
-Il y a aussi une fonction eval() qui pourrait être dangereuse.
-Et voici une URL http://evil.com/malware

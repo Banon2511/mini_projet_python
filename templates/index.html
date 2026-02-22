@@ -360,6 +360,7 @@
                     Dossier : <strong>{{ summary.folder }}</strong><br>
                     Mode : {{ "Récursif" if summary.recursive else "Standard" }} ·
                     Analyse de contenu : {{ "Activée" if summary.analyze_content else "Désactivée" }}
+                    {% if summary.get('ai_available') %}<br><span style="color: var(--accent);">IA activée (anomalies, intention de code, binaires)</span>{% endif %}
                 </p>
 
                 <div class="summary">
@@ -381,6 +382,14 @@
                     </div>
                 </div>
 
+                {% if summary.report_id %}
+                <div style="margin-bottom: 12px;">
+                    <span style="font-size: 0.85rem; color: var(--muted);">Télécharger le rapport :</span>
+                    <a href="/api/v1/reports/{{ summary.report_id }}?format=json" download style="margin-left: 8px; color: var(--accent); text-decoration: none;">JSON</a>
+                    <span style="color: var(--muted);"> | </span>
+                    <a href="/api/v1/reports/{{ summary.report_id }}?format=csv" download style="color: var(--accent); text-decoration: none;">CSV</a>
+                </div>
+                {% endif %}
                 {% if results %}
                     <div style="max-height: 420px; overflow: auto; margin-top: 6px;">
                         <table class="results-table">

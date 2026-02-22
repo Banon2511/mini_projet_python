@@ -1,0 +1,143 @@
+{
+  "summary": {
+    "total_files": 9,
+    "analyzed_files": 9,
+    "high": 6,
+    "medium": 0,
+    "low": 3,
+    "folder": "C:\\Users\\INFO\\AppData\\Local\\Temp\\tmp5zm4bu5t\\test_files",
+    "recursive": false,
+    "analyze_content": true,
+    "scan_duration": 0.41,
+    "scan_status": "completed",
+    "timestamp": "2026-02-21T12:44:43.220317Z",
+    "threat_percentage": 66.7
+  },
+  "results": [
+    {
+      "name": "crack_tool.exe",
+      "path": "C:\\Users\\INFO\\AppData\\Local\\Temp\\tmp5zm4bu5t\\test_files\\crack_tool.exe",
+      "size": 13,
+      "extension": ".exe",
+      "risk_level": "High",
+      "score": 11,
+      "reasons": [
+        "Extension dangereuse: .exe",
+        "Motif malveillant détecté: crack",
+        "Modifié récemment (0.0h)",
+        "YARA: Suspicious_Keywords - Malicious keywords detection",
+        "AI Binary: Unknown binary with risk 0.80",
+        "AI Analysis: {'anomaly_detected': np.False_, 'anomaly_confidence': np.float64(0.19995941720182026), 'code_analysis': None, 'binary_analysis': {'file_type': 'Unknown binary', 'entropy': np.float64(3.0269868333592873), 'suspicious_strings': [], 'risk_score': 0.8, 'risk_level': 'High', 'is_executable': False}}"
+      ]
+    },
+    {
+      "name": "data.csv",
+      "path": "C:\\Users\\INFO\\AppData\\Local\\Temp\\tmp5zm4bu5t\\test_files\\data.csv",
+      "size": 20,
+      "extension": ".csv",
+      "risk_level": "Low",
+      "score": 1,
+      "reasons": [
+        "Modifié récemment (0.0h)",
+        "AI Analysis: {'anomaly_detected': np.False_, 'anomaly_confidence': np.float64(0.19995941720182026), 'code_analysis': None, 'binary_analysis': None}"
+      ]
+    },
+    {
+      "name": "document.txt",
+      "path": "C:\\Users\\INFO\\AppData\\Local\\Temp\\tmp5zm4bu5t\\test_files\\document.txt",
+      "size": 28,
+      "extension": ".txt",
+      "risk_level": "Low",
+      "score": 1,
+      "reasons": [
+        "Modifié récemment (0.0h)",
+        "AI Analysis: {'anomaly_detected': np.False_, 'anomaly_confidence': np.float64(0.19995941720182026), 'code_analysis': None, 'binary_analysis': None}"
+      ]
+    },
+    {
+      "name": "eicar.txt",
+      "path": "C:\\Users\\INFO\\AppData\\Local\\Temp\\tmp5zm4bu5t\\test_files\\eicar.txt",
+      "size": 68,
+      "extension": ".txt",
+      "risk_level": "High",
+      "score": 6,
+      "reasons": [
+        "Modifié récemment (0.0h)",
+        "YARA: EICAR_Test_File - Standard antivirus test file",
+        "YARA: Suspicious_Keywords - Malicious keywords detection",
+        "AI Analysis: {'anomaly_detected': np.False_, 'anomaly_confidence': np.float64(0.2035288613024821), 'code_analysis': None, 'binary_analysis': None}"
+      ]
+    },
+    {
+      "name": "image.jpg",
+      "path": "C:\\Users\\INFO\\AppData\\Local\\Temp\\tmp5zm4bu5t\\test_files\\image.jpg",
+      "size": 18,
+      "extension": ".jpg",
+      "risk_level": "Low",
+      "score": 1,
+      "reasons": [
+        "Modifié récemment (0.0h)",
+        "AI Analysis: {'anomaly_detected': np.False_, 'anomaly_confidence': np.float64(0.19995941720182026), 'code_analysis': None, 'binary_analysis': None}"
+      ]
+    },
+    {
+      "name": "keylogger.js",
+      "path": "C:\\Users\\INFO\\AppData\\Local\\Temp\\tmp5zm4bu5t\\test_files\\keylogger.js",
+      "size": 44,
+      "extension": ".js",
+      "risk_level": "High",
+      "score": 7,
+      "reasons": [
+        "Extension dangereuse: .js",
+        "Motif malveillant détecté: keylog",
+        "Modifié récemment (0.0h)",
+        "AI Analysis: {'anomaly_detected': np.False_, 'anomaly_confidence': np.float64(0.19995941720182026), 'code_analysis': {'detected_intents': [], 'intent_details': {}, 'risk_score': 0.0, 'risk_level': 'Low', 'is_suspicious': False}, 'binary_analysis': None}"
+      ]
+    },
+    {
+      "name": "program.exe",
+      "path": "C:\\Users\\INFO\\AppData\\Local\\Temp\\tmp5zm4bu5t\\test_files\\program.exe",
+      "size": 15,
+      "extension": ".exe",
+      "risk_level": "High",
+      "score": 5,
+      "reasons": [
+        "Extension dangereuse: .exe",
+        "Modifié récemment (0.0h)",
+        "AI Binary: Unknown binary with risk 0.80",
+        "AI Analysis: {'anomaly_detected': np.False_, 'anomaly_confidence': np.float64(0.19345271276715442), 'code_analysis': None, 'binary_analysis': {'file_type': 'Unknown binary', 'entropy': np.float64(3.2402239289418517), 'suspicious_strings': [], 'risk_score': 0.8, 'risk_level': 'High', 'is_executable': False}}"
+      ]
+    },
+    {
+      "name": "suspicious.py",
+      "path": "C:\\Users\\INFO\\AppData\\Local\\Temp\\tmp5zm4bu5t\\test_files\\suspicious.py",
+      "size": 32,
+      "extension": ".py",
+      "risk_level": "High",
+      "score": 6,
+      "reasons": [
+        "Extension suspecte: .py",
+        "Modifié récemment (0.0h)",
+        "YARA: Suspicious_Code - Suspicious code execution patterns",
+        "AI Code Intent: file_deletion",
+        "AI Code Intent: system_commands",
+        "Ligne 1: system(",
+        "AI Analysis: {'anomaly_detected': np.False_, 'anomaly_confidence': np.float64(0.15475113087847397), 'code_analysis': {'detected_intents': ['file_deletion', 'system_commands'], 'intent_details': {'file_deletion': {'matches': [{'keyword': 'rm -rf', 'count': 1, 'severity': 0.3}], 'total_count': 1, 'max_severity': 0.3}, 'system_commands': {'matches': [{'keyword': 'os.system', 'count': 1, 'severity': 1.0}], 'total_count': 1, 'max_severity': 1.0}}, 'risk_score': 0.124, 'risk_level': 'Low', 'is_suspicious': True}, 'binary_analysis': None}"
+      ]
+    },
+    {
+      "name": "virus.bat",
+      "path": "C:\\Users\\INFO\\AppData\\Local\\Temp\\tmp5zm4bu5t\\test_files\\virus.bat",
+      "size": 20,
+      "extension": ".bat",
+      "risk_level": "High",
+      "score": 7,
+      "reasons": [
+        "Extension dangereuse: .bat",
+        "Motif malveillant détecté: virus",
+        "Modifié récemment (0.0h)",
+        "AI Analysis: {'anomaly_detected': np.False_, 'anomaly_confidence': np.float64(0.19995941720182026), 'code_analysis': {'detected_intents': [], 'intent_details': {}, 'risk_score': 0.0, 'risk_level': 'Low', 'is_suspicious': False}, 'binary_analysis': None}"
+      ]
+    }
+  ]
+}

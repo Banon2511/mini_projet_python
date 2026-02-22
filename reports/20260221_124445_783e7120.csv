@@ -1,0 +1,4 @@
+Name,Path,Size,Extension,Risk Level,Score,Reasons
+empty.txt,C:\Users\INFO\AppData\Local\Temp\tmp5zm4bu5t\size_test\empty.txt,0,.txt,Medium,2,Fichier vide (0 octets); Modifié récemment (0.0h)
+large.txt,C:\Users\INFO\AppData\Local\Temp\tmp5zm4bu5t\size_test\large.txt,52428800,.txt,Low,1,Modifié récemment (0.0h)
+small.txt,C:\Users\INFO\AppData\Local\Temp\tmp5zm4bu5t\size_test\small.txt,1,.txt,Medium,2,Fichier anormalement petit (1 octets); Modifié récemment (0.0h)
