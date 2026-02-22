@@ -23,11 +23,10 @@ class ScanRequestSchema(Schema):
         if not normalized_path.strip():
             raise ValidationError("Le chemin du dossier ne peut pas être vide")
         
-        # Vérifier les caractères dangereux
+        # Vérifier les patterns dangereux
         dangerous_patterns = [
             r'\.\./.*',  # Directory traversal
             r'^\.\.[/\\]',  # Commence par ../
-            r'^[\\/]',  # Commence par / ou \
             r'[<>:"|?*]',  # Caractères interdits Windows
         ]
         
@@ -238,10 +237,9 @@ class ValidationUtils:
         
         # Vérifier les patterns dangereux
         dangerous_patterns = [
-            r'\.\./.*',
-            r'^\.\.[/\\]',
-            r'^[\\/]',
-            r'[<>:"|?*]',
+            r'\.\./.*',  # Directory traversal
+            r'^\.\.[/\\]',  # Commence par ../
+            r'[<>:"|?*]',  # Caractères interdits Windows
         ]
         
         for pattern in dangerous_patterns:
@@ -252,13 +250,25 @@ class ValidationUtils:
         system_paths = [
             '/System', '/Windows', '/Program Files',
             '/usr/bin', '/usr/sbin', '/bin', '/sbin',
-            'C:\\Windows', 'C:\\Program Files'
+            'C:\\Windows', 'C:\\Program Files',
+            '/etc', '/proc', '/sys', '/boot', '/dev'
         ]
         
         normalized_lower = normalized.lower()
         for sys_path in system_paths:
             if normalized_lower.startswith(sys_path.lower()):
                 return False
+        
+        # Autoriser les chemins utilisateurs valides
+        user_path_patterns = [
+            r'^/home/[^/]+/.*',  # Linux home paths
+            r'^C:\\Users\\[^\\]+\\.*',  # Windows user paths
+            r'^/Users/[^/]+/.*'  # macOS user paths
+        ]
+        
+        for pattern in user_path_patterns:
+            if re.search(pattern, path, re.IGNORECASE):
+                return True
         
         return True
     

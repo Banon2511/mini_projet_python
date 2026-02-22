@@ -61,10 +61,14 @@ pip install yara-python  # Optionnel mais recommandé
 
 ## 📖 Utilisation
 
-### Lancement du Scanner
+### Lancement
 
 ```bash
-python MiniSec_Scanner.py
+# CLI (ligne de commande)
+python minisec_cli.py
+
+# Application web (formulaire + API REST)
+python wsgi.py
 ```
 
 ### Interface Interactive
@@ -92,19 +96,7 @@ Le scanner vous guidera à travers plusieurs étapes :
 
 ## 📁 Structure du Projet
 
-```
-mini_project_python/
-├── MiniSec_Scanner.py          # Scanner principal
-├── create_test_files.py        # Générateur de fichiers de test
-├── yara_test_generator.py      # Générateur de tests YARA
-├── fichier_test.txt            # Fichier de test d'exemple
-├── rules/                      # Règles YARA
-│   ├── malware_rules.yar       # Règles de base
-│   └── enhanced_malware_rules.yar  # Règles avancées
-├── __pycache__/                # Cache Python
-├── rapport_minisec_*.txt       # Rapports générés
-└── README.md                   # Ce fichier
-```
+Principaux éléments : `scanner.py`, `ai_models.py`, `minisec/` (moteur de scan), `app/` (Flask web + API), `signatures/` (base de hashes), `ml_data/` (dataset ML), `tests/` (pytest).
 
 ## 🔧 Configuration Avancée
 
@@ -189,6 +181,49 @@ python yara_test_generator.py
 | Fichier caché | +1 | Fichiers commençant par . |
 | Détection YARA | +1-3 | Selon niveau de menace |
 | Contenu suspect | +2 | Code malveillant, URLs |
+
+### 🔬 Évaluation des Modèles ML
+
+Pour la partie IA, un petit dataset annoté (bénin / malveillant) est fourni dans `ml_data/labeled_samples.jsonl`.
+Un script d'évaluation dédié permet de calculer des métriques classiques de machine learning :
+
+- Accuracy, précision, rappel, F1-score
+- Matrice de confusion
+- Rapport de classification détaillé par classe
+
+Lancer l'évaluation :
+
+```bash
+python ml_evaluation.py
+```
+
+Les métriques sont exportées dans `reports/ml_metrics.json`, prêtes à être utilisées dans le rapport académique ou la soutenance.
+
+### 📂 Base de signatures (dossier `signatures/`)
+
+Le dossier `signatures/` contient la base de hashes (MD5/SHA256) pour la détection de menaces connues.
+
+- **EICAR** : fichiers test antivirus.
+- **Signatures réelles** : hashes issus de threat intelligence publique (APTs, trojans, backdoors), source : [Neo23x0/signature-base](https://github.com/Neo23x0/signature-base) (LOKI Custom Evil Hashes). Menaces couvertes : Dark Caracal, Sofacy, Tick Group, Fancy Bear, Ocean Lotus, Patchwork, APT10, etc.
+
+**Fichier `signatures/signature_db.json`** — format attendu :
+
+```json
+{
+  "version": "1.0",
+  "signatures": [
+    {
+      "md5": "44d88612fea8a8f36de82e1278abb02f",
+      "sha256": "131f95c51cc819465fa1797f6ccacf9d494aaaff46fa3eac73ae63ffbdfd7827",
+      "name": "Nom.Menace",
+      "type": "Test|Trojan|Ransomware|...",
+      "description": "Description optionnelle"
+    }
+  ]
+}
+```
+
+Au moins un de `md5` ou `sha256` doit être renseigné (minuscules). Pour ajouter une signature : calculer le hash du fichier, ajouter une entrée dans `signatures`, puis relancer un scan. *Usage pédagogique uniquement.*
 
 ## 🛠️ Développement et Maintenance
 

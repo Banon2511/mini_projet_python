@@ -1,20 +1,18 @@
 """
-Point d'entrée WSGI pour MiniSec Scanner
-
-Usage:
-  - Développement: python wsgi.py
-  - Production:    gunicorn wsgi:app
+Point d'entrée WSGI pour l'application web MiniSec.
+Lancer avec : python wsgi.py
 """
 import os
+import sys
 
-# Charger les variables d'environnement avant create_app
-if os.path.exists(".env"):
-    from dotenv import load_dotenv
-    load_dotenv()
+# S'assurer que le répertoire du projet est dans le PYTHONPATH
+sys_path = os.path.dirname(os.path.abspath(__file__))
+if sys_path not in sys.path:
+    sys.path.insert(0, sys_path)
 
 from app import create_app
 
-app = application = create_app()
+app = create_app()
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=5000)
+    app.run(host="0.0.0.0", port=5000, debug=True)

@@ -409,64 +409,6 @@ rule Suspicious_URLs {
         
         return (score, suspicious_lines)
     
-    def analyze_file(self, file_info: Dict) -> Dict:
-        """Analyse complète d'un fichier avec IA"""
-        filename = file_info['name']
-        file_path = file_info['path']
-        
-        # Analyse traditionnelle
-        extension_score, extension_reason = self.analyze_extension(file_info['extension'])
-        name_score, name_reason = self.analyze_filename(filename)
-        size_score, size_reason = self.analyze_size(file_info['size'])
-        mtime_score, mtime_reason = self.analyze_modification_date(file_info['mtime'])
-        hidden_score, hidden_reason = self.analyze_hidden_file(file_info['is_hidden'], filename)
-        
-        # Analyse de contenu (avec IA)
-        content_score, content_reasons = self.analyze_file_content(file_path, filename)
-        
-        # Calculer le score total
-        total_score = extension_score + name_score + size_score + mtime_score + hidden_score + content_score
-        
-        # Rassembler toutes les raisons
-        all_reasons = []
-        if extension_reason:
-            all_reasons.append(extension_reason)
-        if name_reason:
-            all_reasons.append(name_reason)
-        if size_reason:
-            all_reasons.append(size_reason)
-        if mtime_reason:
-            all_reasons.append(mtime_reason)
-        if hidden_reason:
-            all_reasons.append(hidden_reason)
-        all_reasons.extend(content_reasons)
-        
-        # Déterminer le niveau de risque
-        risk_level = self.calculate_risk_level(total_score)
-        
-        # Ajouter les informations IA si disponibles
-        ai_info = {}
-        if self.enable_ai and self.ai_manager:
-            try:
-                # Ajouter le statut des modèles IA
-                ai_info['models_status'] = self.ai_manager.get_model_status()
-            except Exception as e:
-                logger.warning(f"Failed to get AI status: {e}")
-        
-        return {
-            'name': filename,
-            'path': file_path,
-            'size': file_info['size'],
-            'extension': file_info['extension'],
-            'risk_level': risk_level,
-            'score': total_score,
-            'reasons': all_reasons,
-            'ai_info': ai_info,
-            'is_hidden': file_info['is_hidden'],
-            'created': file_info.get('created', 0),
-            'modified': file_info['mtime']
-        }
-    
     def calculate_risk_level(self, total_score: int) -> str:
         """Calculate threat level"""
         if total_score >= 5:
@@ -475,33 +417,32 @@ rule Suspicious_URLs {
             return 'Medium'
         else:
             return 'Low'
-    
+
     def analyze_file(self, file_info: Dict) -> Dict:
-        """Comprehensive file analysis"""
+        """Analyse complète d'un fichier (extension, nom, taille, date, caché, signatures, contenu, IA)."""
         reasons = []
         total_score = 0
-        
-        # Run all analysis modules
+
         ext_score, ext_reason = self.analyze_extension(file_info['extension'])
         total_score += ext_score
         if ext_reason:
             reasons.append(ext_reason)
-        
+
         name_score, name_reason = self.analyze_filename(file_info['name'])
         total_score += name_score
         if name_reason:
             reasons.append(name_reason)
-        
+
         size_score, size_reason = self.analyze_size(file_info['size'])
         total_score += size_score
         if size_reason:
             reasons.append(size_reason)
-        
+
         mtime_score, mtime_reason = self.analyze_modification_date(file_info['mtime'])
         total_score += mtime_score
         if mtime_reason:
             reasons.append(mtime_reason)
-        
+
         hidden_score, hidden_reason = self.analyze_hidden_file(
             file_info['is_hidden'], file_info['name']
         )
@@ -509,22 +450,28 @@ rule Suspicious_URLs {
         if hidden_reason:
             reasons.append(hidden_reason)
 
-        # Base de signatures (toujours exécutée)
         sig_score, sig_reason = self.analyze_signature(file_info['path'])
         total_score += sig_score
         if sig_reason:
             reasons.append(sig_reason)
-        
+
         if self.analyze_content:
             content_score, content_reasons = self.analyze_file_content(
                 file_info['path'], file_info['name']
             )
             total_score += content_score
             if content_reasons:
-                reasons.extend(content_reasons[:5])  # Limiter à 5 raisons
-        
+                reasons.extend(content_reasons[:5])
+
         risk_level = self.calculate_risk_level(total_score)
-        
+
+        ai_info = {}
+        if self.enable_ai and self.ai_manager:
+            try:
+                ai_info['models_status'] = self.ai_manager.get_model_status()
+            except Exception as e:
+                logger.warning(f"Failed to get AI status: {e}")
+
         return {
             'name': file_info['name'],
             'path': file_info['path'],
@@ -533,8 +480,9 @@ rule Suspicious_URLs {
             'risk_level': risk_level,
             'score': total_score,
             'reasons': reasons if reasons else ['Aucune menace détectée'],
+            'ai_info': ai_info,
             'is_hidden': file_info['is_hidden'],
-            'created': file_info['created'],
+            'created': file_info.get('created', 0),
             'modified': file_info['mtime']
         }
     

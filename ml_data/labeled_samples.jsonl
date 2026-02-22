@@ -1,0 +1,10 @@
+{"label": "benign", "content": "Configuration de l'application, paramètres utilisateur et texte descriptif sans code dangereux ni accès réseau."}
+{"label": "benign", "content": "Fichier de documentation contenant uniquement du texte explicatif sur l'utilisation du logiciel, sans scripts ni commandes système."}
+{"label": "benign", "content": "Liste de courses: pommes, bananes, lait, oeufs. Aucune instruction d'exécution ni accès disque."}
+{"label": "benign", "content": "Script Python simple qui additionne deux nombres et affiche le résultat sans appel à os.system ni réseau."}
+{"label": "benign", "content": "Page HTML statique avec du contenu informatif, des balises de mise en forme et aucun JavaScript actif suspect."}
+{"label": "malicious", "content": "Script Python qui utilise os.system('rm -rf /') pour supprimer des fichiers système et exécute des commandes shell dangereuses."}
+{"label": "malicious", "content": "Code qui importe subprocess et lance des commandes externes pour télécharger et exécuter un binaire depuis http://malicious.example.com/payload.exe."}
+{"label": "malicious", "content": "Programme qui essaie de voler des mots de passe en lisant des fichiers sensibles puis en les envoyant via requests.post vers une URL distante."}
+{"label": "malicious", "content": "Script qui chiffre tous les fichiers du dossier avec AES avant d'envoyer la clé de chiffrement à un serveur de commande et contrôle."}
+{"label": "malicious", "content": "Keylogger basique qui intercepte les frappes clavier et les écrit dans un fichier secret_passwords.txt pour les exfiltrer plus tard."}

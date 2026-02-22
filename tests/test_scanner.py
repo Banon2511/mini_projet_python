@@ -178,7 +178,8 @@ class TestSecurityScanner:
             'size': 1024,
             'extension': '.exe',
             'mtime': 1640995200,  # Timestamp fixe
-            'is_hidden': False
+            'is_hidden': False,
+            'created': 1640995200  # Timestamp de création
         }
         
         result = scanner.analyze_file(file_info)

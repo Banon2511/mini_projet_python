@@ -111,6 +111,11 @@ class AIDetector:
             confidence = abs(anomaly_score)
             is_anomaly = prediction == -1
             
+            # Ajuster le seuil de détection pour réduire les faux positifs
+            if confidence < 0.1:  # Très faible anomalie = considérer comme normal
+                is_anomaly = False
+                confidence = 0.05
+            
             if is_anomaly:
                 reason = f"Anomaly detected with {confidence:.2%} confidence"
             else:
@@ -186,7 +191,9 @@ class CodeIntentAnalyzer:
             ],
             'keylogging': [
                 'keyboard', 'keylogger', 'GetAsyncKeyState', 'keyboard_hook',
-                'key_down', 'key_up', 'keystroke'
+                'key_down', 'key_up', 'keystroke', 'keydown', 'keyup',
+                'addEventListener.*keydown', 'onkeydown', 'onkeypress',
+                'document.addEventListener.*key', 'fetch.*log', 'POST.*key'
             ],
             'persistence': [
                 'registry', 'startup', 'autorun', 'services', 'cron',

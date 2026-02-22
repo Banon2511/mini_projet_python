@@ -10,10 +10,10 @@ from pathlib import Path
 class ScanConfig:
     """Configuration d'un scan - pondérations et seuils paramétrables"""
     
-    # Dossier racine autorisé (sandbox)
+    # Dossier racine autorisé (sandbox) — défaut : racine du projet
     scan_sandbox: str = field(
         default_factory=lambda: os.path.abspath(
-            os.path.join(os.path.dirname(__file__), "..", "scan_sandbox")
+            os.path.join(os.path.dirname(__file__), "..")
         )
     )
     

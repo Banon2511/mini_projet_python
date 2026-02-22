@@ -1,0 +1,32 @@
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtualenv / venv
+.venv/
+venv/
+env/
+
+# Logs et rapports générés
+logs/
+reports/
+
+# Fichiers de tests / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE / éditeur
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Modèles IA & artefacts
+models/
+
+# Autres fichiers temporaires
+*.tmp
+*.log
+*.bak
